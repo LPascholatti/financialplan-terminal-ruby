@@ -1,7 +1,6 @@
 require 'date'
 require 'tty-box'
 
-File.open("financialplan.txt", "a") do |line|
 
 BEGIN {
     require 'colorized_string'
@@ -97,5 +96,17 @@ sleep 5
 END {
     puts "This was your financial plan.\nYou still have left: ", left.round(2), "euros \u{1F4B6}", "\nPossible excessive expenses are addictions\u{1F331}, Food/Drinks and unexpected subscriptions or debts until next salary."
     sleep 4
+    puts("A result.txt file will being generated with the results above!")
+    sleep 4
     puts ColorizedString["\nRemember, spend your money wisely!\u{1F4B6}\n"].colorize(:blue)
+
+    File.open('result.txt', 'w') { |f| f.write "Name:#{name}\n
+    Result:\n\n#{Time.now} - User logged in\n
+    Your month expenses will be in total \u{1F4B8}:#{expenses.round(2)}, euros \u{1F4B6}\n
+    There will be left:#{rest.round(2)} euros \u{1F4B6}\n
+    However, you still have a few debts to pay.\n
+    You should save from your the remaining income a considerable amount to pay debts, which means your Credit Card \u{1F4B3}, personal addictions\u{1F331} and purchases \u{1F913}:#{debt.round(2)} euros \u{1F4B6}\n
+    \nFor general expenses.You will have left:#{left.round(2)} euros \u{1F4B6}\n
+    Today is:#{date}\n" }
 }
+
